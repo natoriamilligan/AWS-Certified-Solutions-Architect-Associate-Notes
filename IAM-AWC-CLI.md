@@ -24,6 +24,7 @@
         - `Resource` : list of resources to which the actions applied
         - `Condition` : conditions for when this policy is in effect (optional)
     ### Passwords and MFA
-        - You can customize a password policy for your users
-        -  MFA is a must and is recommended
+      - You can customize a password policy for your users
+      -  MFA is a must and is recommended
+  
   
