@@ -2,6 +2,7 @@
 
 ## IAM
   - Identity and Access Management
+  - to be able to sign in using users, you need to create an alias from the root user
   ### Users & Groups
   - Never use the root account or share it instead users
   - Users are people within your organization and can be grouped together
@@ -35,9 +36,22 @@
       - AWS Management Console : protected by MFA and password
       - AWS Command Line Interface : protected by access keys (CLI)
       - AWS Software Development Kit : for code; protected by access keys (SDK)
+        - language specific APIs
+        - enables you to access AWS programmatically
    
   ## AWS CLI
-    - Allows you to access AWS through the command line
+  - Allows you to access AWS through the command line
+    ### How to create access keys?
+      - Go to user
+      - Security creditials
+      - Create access keys
+   
+    ### How to use the CLI?
+      - First install aws cli via the terminal
+      - `aws configure`
+      - enter aws access key and aws secret access key
+      - add region name
+      - default output press enter
     
     
          
