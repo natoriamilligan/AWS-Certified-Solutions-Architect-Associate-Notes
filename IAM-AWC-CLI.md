@@ -25,6 +25,22 @@
         - `Condition` : conditions for when this policy is in effect (optional)
     ### Passwords and MFA
       - You can customize a password policy for your users
-      -  MFA is a must and is recommended
+      -  MFA is a must and is recommended V
+      -  Virtual MFA device (Google Authenticator or Authy)
+         - Universal 2nf Factor (YubiKey)
+         - Hardware Key Fob Device
+         - Hardware Key Fob Device for AWS GovCloud
+       
+    ### How to access AWS?
+      - AWS Management Console : protected by MFA and password
+      - AWS Command Line Interface : protected by access keys (CLI)
+      - AWS Software Development Kit : for code; protected by access keys (SDK)
+   
+  ## AWS CLI
+    - Allows you to access AWS through the command line
+    
+    
+         
+         
   
   
