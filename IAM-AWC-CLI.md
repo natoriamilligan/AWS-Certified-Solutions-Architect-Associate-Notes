@@ -38,7 +38,20 @@
       - AWS Software Development Kit : for code; protected by access keys (SDK)
         - language specific APIs
         - enables you to access AWS programmatically
-   
+
+  ## IAM Roles
+  -  permissions given to AWS services
+  -  **POLICY**
+      - "Action": ["sts:AssumeRole"]
+      - "Service": ["ec2.amazonaws.com"]
+      - This means that this role can be assumed by the EC2 service
+
+  ## IAM Security Tools
+  - IAM Credentials Report (account-level)
+    - lists account users and the status of their credentials
+  - IAM Access Advisor (user-level)
+    - shows service permissions granted to users and when those services were last accessed
+    - use this info to revise permissions
   ## AWS CLI
   - Allows you to access AWS through the command line
     ### How to create access keys?
