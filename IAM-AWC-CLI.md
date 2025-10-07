@@ -39,22 +39,29 @@
         - language specific APIs
         - enables you to access AWS programmatically
 
-  ## IAM Roles
-  -  permissions given to AWS services
-  -  **POLICY**
-      - "Action": ["sts:AssumeRole"]
-      - "Service": ["ec2.amazonaws.com"]
-      - This means that this role can be assumed by the EC2 service
+    ### IAM Roles
+    -  permissions given to AWS services
+    -  **POLICY**
+        - "Action": ["sts:AssumeRole"]
+        - "Service": ["ec2.amazonaws.com"]
+        - This means that this role can be assumed by the EC2 service
 
-  ## IAM Security Tools
-  - IAM Credentials Report (account-level)
-    - lists account users and the status of their credentials
-  - IAM Access Advisor (user-level)
-    - shows service permissions granted to users and when those services were last accessed
-    - use this info to revise permissions
+    ### IAM Security Tools
+    - IAM Credentials Report (account-level)
+      - lists account users and the status of their credentials
+      - great to look at if you are looking at users account security and if they are changing their passwords or have MFA
+      - CSV file
+      - In IAM left tab
+    - IAM Last Accessed (user-level)
+      - shows service permissions granted to users and when those services were last accessed
+      - use this info to revise permissions
+      - find tab in the individual users profile
   ## AWS CLI
   - Allows you to access AWS through the command line
-    ### How to create access keys?
+    ### Access Keys
+      - Used to access the CLI
+      - After you create an access key, that is the last time you will see that page. You have to store your access key somewhere or dowmload it
+      **How to get an access key?**
       - Go to user
       - Security creditials
       - Create access keys
