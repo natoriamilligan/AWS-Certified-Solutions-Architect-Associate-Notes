@@ -68,3 +68,31 @@
 
   **********
   - the public IP address will change when you start and stop an instance put the private IP address will not
+
+## Security Groups
+  - fundamental to network security in AWS
+  - controls how traffic is allowed into the instances
+  - contain allow rules
+  - rules can reference by IP or by security group
+  - security groups act like a firewall around the EC2 instance
+  - security groups regulate
+    - access to ports
+    - authorized IP ranges - IPv4 and IPv6
+    - control inbound and outbound network
+  - can be attached to multiple instances
+  - instances can have multiple security groups
+  - locked down to region/VPC combination
+  - lives outside the EC2 - if traffic is blocked EC2 wont see it
+  - good to maintain one separate security groups for SSH access
+  - if your app is not accessible (time out) its a security group issue
+  - if your app givs a "connection refused erros, its an app error or its not launched
+  - all inbound traffic is blocked by default
+  - all outbound traffic is authorized by default
+  - if different instances have the correct authorized security group attached to them, they can communicate with other instances.
+    ### Ports
+      - 22 : SSH (Secure Shell) - log into a Linux instance
+      - 21 : FTP (file transfer protocol) - upload files into file share
+      - 22 : SFTP (Secure File Transfer Protocol) - upload files using SSH
+      - 80 : HTTP - access unsecured websites
+      - 443 : HTTPS - access secured websites
+      - 3389 : RDP (Remote Desktop Protocol) - log into a Windows instance
