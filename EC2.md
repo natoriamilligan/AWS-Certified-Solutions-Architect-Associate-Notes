@@ -23,6 +23,32 @@
   - EC2 Data user runs with the root user
     
 ## Instance Types
+  - 6 Types. Each Instance type has different families. (Compare at instances.vantage.sh)
+    - **General Purpose** (M, T)
+      - great for a diversity of workloads
+      - balanced between compute memory and networking
+    - **Compute Optimized** (C)
+      - For compute intensive tasks that require high performance processors
+        - gaming, high performance web servers
+        - media transcoding
+        - Machine learning
+        - etc
+    - **Memory Optimized** (R)
+      - good for workloads that process large data sets in memory
+        - high performance relational/non-relational databases
+        - processing big unstructured data
+        - etc
+    - **Storage Optimized** (I, D, H1)
+      - for storage instensive tasks that require high requential read and write access to large data sets on local storage
+        - data warehousing apps
+        - cache for in-memory databases
+        - relations and NoSQL databases (Redis)
+        - high frequency online transaction processing (OLTP) systems
+  - Naming convention
+    Ex. m5.2xlarge
+      - m : instance class
+      - 5 : generation
+      - 2xlarge : size within class
 
 ## How to run an EC2 Instance on Linux
   - Add name and tags
