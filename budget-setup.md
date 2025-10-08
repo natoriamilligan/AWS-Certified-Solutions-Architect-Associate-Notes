@@ -7,4 +7,4 @@
     - Scrolldown to give permissions to all IAM users.
    
     ### Budgets
-      - You can give budgets
+      - You can create budgets for yourself based on templates
