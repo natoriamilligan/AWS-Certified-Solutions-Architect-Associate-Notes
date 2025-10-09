@@ -195,6 +195,42 @@
   - Dedicated Hosts : You rent the entire garage with one or more cars exclusively for yourself. You know exactly which cars are there, you choose which to drive, and no one else ever touches them.
   - Dedicated Instances : You always get a car that no one else has used or will use, but you don’t get to pick which garage it’s in, or know if all your cars are in the same garage.
   - Capacity : You call the rental agency and say, “I’ll need an SUV on Friday at 3 PM — hold it for me.” They guarantee that the car will be waiting when you need it. Reserve in a spcific AZ. you are guarateed no matter what.
+
+## Private and Public IP
+  - IPv4 is still the ost commonly used
+    - 4 numbers separated by periods (each number is between 0-255)
+    - Allows for 3.7 billons different addresses in the public space
+  - IPv6 is comstly used for the IoT devices because it is newer and soves problems for them.
+    - has a more complicated IP number format
+  ********
+  - Your EC2 machine comes with:
+    - a private Ip for the internal AWS network
+    - a public IP for the web
+  - During SSH into our EC2 machine
+    - we can use a private IP because we are not on the same network (need a VPN)
+    - We can only use the public IP
+  ### Public IPs
+  - machine can be identified on the internet
+  - must be unique accross the whole web
+  - can be geo-lacated easily
+
+  ### Private IPs
+  - machines can only be identified on a private network
+  - IP must be unique accross the private network but 2 different private networks can have the same IPs
+  - machines connect to the web used an internet gateway (a proxy)
+  - only a specified range of IPs can be used as a private IP
+
+  ### Elastic IPs
+  - when you start an EC2 instance, it can change its public IP
+  - can only have 5 elastic Ips in your account
+  - avoid using them. Instead used a random public IP and register a DNA name to it
+  - if you need to have a fixed piblic IP for your instance, you need an Elastic IP
+  - its public as long as your dont delete it
+  - You can attach one instance to it at a time
+  - with an elastic IP, you can mask the failure of an instance or software by remapping the address to another instance in your account
+  #### Create an Elastic IP address and associate it to an EC2 instance
+  - Create an IP address
+  - Then from actions > associate IP address > click instance > search for instance to use > Private IP address selection (choose the Elastic IP address)
     
 
   
