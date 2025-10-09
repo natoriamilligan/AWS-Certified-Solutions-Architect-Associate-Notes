@@ -269,7 +269,7 @@
 
 ## EC2 Hibernate
   - Option other than stopping or terminating an instance
-  - RAM state is preserved in an encrypted and written in the root EBS volume where the EBS volume is what is encrypted.
+  - RAM state is preserved in an encrypted and written in the root EBS volume where the EBS volume is what is encrypted. The EC2 Instance Volume Type has to be an EBS volume.
   - Used for long running processes, saving the RAM state, or if you have services that take a lot of time to initialize
   - Instance RAM size should be less than 150 GB
   - works for many OSs, instance families, AMIs, ondemand, reserved, and spot instances.
