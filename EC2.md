@@ -257,7 +257,7 @@
      
 ## EC2 Network Interface (ENI)
   - Represents a virtual network card
-  - An ENi can have the following:
+  - An ENI can have the following:
     - Primary private IPv4, one or more secondary IPv4
     - One Elastic IP per private IPv4
     - One Public IP
@@ -265,6 +265,16 @@
     - A MAC address
   - You can create ENIs independently and attach them or move them on EC2 instances for failover
   - Bound to a specific AZ
+  - When you create an independent ENI, it gets a private IP address
+
+## EC2 Hibernate
+  - Option other than stopping or terminating an instance
+  - RAM state is preserved in an encrypted and written in the root EBS volume where the EBS volume is what is encrypted.
+  - Used for long running processes, saving the RAM state, or if you have services that take a lot of time to initialize
+  - Instance RAM size should be less than 150 GB
+  - works for many OSs, instance families, AMIs, ondemand, reserved, and spot instances.
+  - Not supported for bare metal instances
+  - An instance cant be hibernated for more than 60 days
       
     
 
