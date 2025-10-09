@@ -149,6 +149,25 @@
        - distributed workloads
        - workloads with flexible start and end times
       - **Not suitable for databases or critial jobs**
+      - Sport Blocks: no longer in usage however they block a spot instances during a specific time frame
+      - Spot price varies based on Region
+      - You get a 2 minute grace period if price goes oever, you can either stop or terminate. If the spot price goes down, you can just stop and restart with the price goes back down. OTherwise you might just choose to terminate and restart a new instance on another spot.
+      - Spot Requests
+        - requests that define the amount of instances you want, costs and time frame. The request can be persistant or a one time request.
+        - Also if instances are closed because of price, the spot request will open another for you
+        - If it is persistent and you terminate an instance, your spot request is still open and will create instances to make them match the spot request.
+        - It is best to stop your spot request before you terminate instances.
+      - Spot Fleets = set of spot instances + (optional) On Demand Instances
+        - the fleet will try to meet the target capacity with the price contraints you give it
+          - you can define the isntance types, OS, and AZs
+          - You can have multiple launch pools so the fleet can choose the best
+          - the spot fleet will stop launching instances when it reaches capacity or the max cost
+          - Strategies to allocate Spot Instances for the fleet to work with:
+            - lowest price : from the pool with the lowest price (cost optimized, short workloads)
+            - diversified : distributed accross all pools (great for availibilty and long workloads)
+            - capacity optimzed : pool with the optimal capacity for the number of instances
+            - priceCapacityOptimzed(recommended) : pools with the highest capacity, then select the pool with the lowest price (best choice for most workloads)
+          - spot fleets allow us to automatically request Spot nstances with the lowest price
   9. Dedicated Hosts : book an entire server, control instance placement ( you have control over the actual server while dedicated instances do not) (gives you visibility into the lower level hardware)
       - A physical server with EC2 instance capacity fully dedicated to your use
       - useful if you have compliance requirements and use your existig server-bound software licenses (per socket, per-core,per-VM software licenses)
