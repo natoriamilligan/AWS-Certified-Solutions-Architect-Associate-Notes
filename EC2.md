@@ -111,7 +111,7 @@
     **Never added your access key credentials to an EC2 instance bc other users who log in will be able to see your keys. So use IAM Roles instead**
     1. Go to Actions > security > modify IAM Role in your instances page
 
-  ## IAM Purchasing Options
+  ## EC2 Purchasing Options
   1. On-Demand : short workload, predictable pricing, pay by second
      - Pay for what you use:
        - Linux or Windows - billing per second, after first minute
@@ -126,12 +126,13 @@
        - Reservation Period - 1 year(+discount) or 3years(+++discount)
        - Payment Options - No upfront(+), partial upfront(++), or all upfront(+++)
        - Reserved Instance's Scope = Regional or Zonal (reserve capacity in an AZ)
-       - Recommended For sterady state usage apps (databases)
+       - Recommended For steady state usage apps (databases)
        - You can buy and sell in the Reserved Instance Marketplace
      - Convertiable Reserved Instances : long workloads with flexible instances
        - Can change the EC2 instance type, instance family, OS, scope and tenancy
        - Up to 66% discount
   5. Savings Plans (1 or 3 years) : commitment to an amount of usage, long workload
+     - same as reserved pretty much but more flexible
      - Discount based on long term usage
      - comit to a certain type of usage ($10/hour for 1 or 3 years)
      - any usage beyond the savings plan is billed at on-demand price
@@ -167,6 +168,14 @@
       - combine with  Regional Reserved Instances and SAvings Plans to benefit from discounts
       - Your charged at ondemand-rate whether you run instances or not
       - Best for short term, uniterrupted workloads that needs to be in a specific AZ
-  
+  ### How to choose which purchaing option is for me?
+  - On demand : You walk into a car rental place and say, “I need a car for a few hours or days.” You pay only for what you use, and you can return it anytime.
+  - Reserved : You sign a 1-year or 3-year lease on a car. Because you commit for longer, you get a much lower monthly rate.
+  - Savings Plan : Instead of leasing one specific car, you commit to spend $X per month on cars over 1–3 years. You can drive different models (SUVs, sedans, etc.), and the company gives you a discounted rate across your usage.
+  - Spot instances : The car rental place calls you and says, “We’ve got a bunch of unused cars today — you can rent them super cheap, but if we need them back, you have to return them right away.”
+  - Dedicated Hosts : You rent the entire garage with one or more cars exclusively for yourself. You know exactly which cars are there, you choose which to drive, and no one else ever touches them.
+  - Dedicated Instances : You always get a car that no one else has used or will use, but you don’t get to pick which garage it’s in, or know if all your cars are in the same garage.
+  - Capacity : You call the rental agency and say, “I’ll need an SUV on Friday at 3 PM — hold it for me.” They guarantee that the car will be waiting when you need it. Reserve in a spcific AZ. you are guarateed no matter what.
+    
 
   
