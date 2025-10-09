@@ -229,16 +229,16 @@
   - You can attach one instance to it at a time
   - with an elastic IP, you can mask the failure of an instance or software by remapping the address to another instance in your account
   #### Create an Elastic IP address and associate it to an EC2 instance
-  - Create an IP address
+  - Create an Elastic IP address
   - Then from actions > associate IP address > click instance > search for instance to use > Private IP address selection (choose the Elastic IP address)
   - Disassociate the IP address, then release the IP address so you do not get charged
 
 ## EC2 Placement Groups
-  - Controls over the EC2 instance placement strategy
+  - Control over the EC2 instance placement strategy
   - Create a placement group and when you create an instance, in advanced details, you can add that instance to a placement group
   - Strategies:
     - Cluster : clusters instances into a low latency group in a single AZ
-      - pros : great networking bc you are in same AX (10 GBPS bandwith)
+      - pros : great networking bc you are in same AZ (10 GBPS bandwith)
       - cons : if the AZ fials, all instances fail at the same time
       - use-case : big data jobs that will be completed fast
       - apps that need extremely low latency and high network throughput
@@ -274,7 +274,14 @@
   - Instance RAM size should be less than 150 GB
   - works for many OSs, instance families, AMIs, ondemand, reserved, and spot instances.
   - Not supported for bare metal instances
-  - An instance cant be hibernated for more than 60 days
+  - An instance cant be hibernated for no more than 60 days
+  #### How to set up Hibernate on an instance?
+   1. Create your instance
+   2. Go to advanced setting and check Hibernate Behavior > enable
+   3. Then go back up to Storage Options > Advanced > encrypt the root volume > select the default KMS key to encrypt
+   4. Make sure the size of the volume can hold the tier you are using. You can check the tier size if you scroll up to Instance Type
+   5. Once your instance is up and running you can hibernate the instance if needed
+  
       
     
 
