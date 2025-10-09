@@ -231,6 +231,41 @@
   #### Create an Elastic IP address and associate it to an EC2 instance
   - Create an IP address
   - Then from actions > associate IP address > click instance > search for instance to use > Private IP address selection (choose the Elastic IP address)
+  - Disassociate the IP address, then release the IP address so you do not get charged
+
+## EC2 Placement Groups
+  - Controls over the EC2 instance placement strategy
+  - Create a placement group and when you create an instance, in advanced details, you can add that instance to a placement group
+  - Strategies:
+    - Cluster : clusters instances into a low latency group in a single AZ
+      - pros : great networking bc you are in same AX (10 GBPS bandwith)
+      - cons : if the AZ fials, all instances fail at the same time
+      - use-case : big data jobs that will be completed fast
+      - apps that need extremely low latency and high network throughput
+    - Spread : spreads instances across underlying hardware (max 7 instances per group per AZ) - critical apps
+      - for minimizing failure risk
+      - all instances are located on different hardware
+      - pros : spread accross AZs, reduced risk of failure
+      - cons : limited to 7 instances per AZ per placement group
+      - use case : app that needs to maxime high availability and critical apps where each instance must be isolated from failure
+    - Partition : spread instances across many different partitions (which rely on different sets of racks) within an AZ. Scales to 100s of EC2 instances per group
+      - instances spread across partitions in many AZs in the same region
+      - you can use many instances in each partitions
+      - each partition is a rack so each partition is safe from a rack failure in the hardware
+      - up to 7 partitions per AZ
+      - use cases : partition aware apps, big data
+     
+## EC2 Network Interface (ENI)
+  - Represents a virtual network card
+  - An ENi can have the following:
+    - Primary private IPv4, one or more secondary IPv4
+    - One Elastic IP per private IPv4
+    - One Public IP
+    - One or more security groups
+    - A MAC address
+  - You can create ENIs independently and attach them or move them on EC2 instances for failover
+  - Bound to a specific AZ
+      
     
 
   
