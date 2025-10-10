@@ -281,8 +281,24 @@
    3. Then go back up to Storage Options > Advanced > encrypt the root volume > select the default KMS key to encrypt
    4. Make sure the size of the volume can hold the tier you are using. You can check the tier size if you scroll up to Instance Type
    5. Once your instance is up and running you can hibernate the instance if needed
+
+## EC2 Storage Options
+  ### EBS Volumes (Elastic Block Store)
+  - a network drive you can attach to instances while they run
+  - allows you instances to persist data, even after their termination. You can make another instance and add the volume and get back the data
+  - They can only be mounted to one instance at a time (sometimes have a multi attach feature?)
+  - bound to a specific AZ (or you have to snapshot it first)
+  - They are like a network USB stick
+  - it uses the network to communicate to the instance so their might be latency
+  - it can detach from an instance quickly
+  - you have to provision the capacity in advance.
+    - you will get billed for the capacity
+    - you can change over time
+  - they can be create independently to be attached on demand
+  - mulitple EBS volumes can be attached to a single instance
+  - The root volume is automatically checked to delete on termination but subsiquent ones added are not checked for that. However you can change what you want to happen for both the root volume and other volumes
   
-      
+        
     
 
   
