@@ -287,6 +287,7 @@
   - a network drive you can attach to instances while they run
   - allows you instances to persist data, even after their termination. You can make another instance and add the volume and get back the data
   - They can only be mounted to one instance at a time (sometimes have a multi attach feature?)
+  - Have limited performance so you can use a hardware disk (EC2 Instance Store)
   - bound to a specific AZ (or you have to snapshot it first)
     #### Snapshots
     - a snapshot is a backup of your EBS volume
@@ -313,6 +314,31 @@
   ********
   #### Creating Volumes
   - Make sure to select the same availibilty zone for your volume that your instance is in
+  #### Volume Types (6 Types)
+  - gp2/gp3 : general prupose SSD that balances price and performance
+  - io1/io2 block Express : 
+  
+
+  ### EC2 Instance Store
+  - Better I/O performance
+  - lose their storage if they are stopped
+  - good for buffer/cache/scratch data/ temportary content
+  - risk of data loss if hardware fail so you need to make sure you backup the data
+
+## AMIs (Amazon Machine Image)
+- AMI powers the EC2 instances
+- they are a customization of an EC2 instance
+  - software configuration, OSs, monitoring
+- AMI are built for a specific region
+- You can launch EC2 instances from:
+  - A Public AMI :AWS provided
+  - Your own AMI
+  - An AWS Marketplace AMI : an AMI someone else made (potentially sells)
+  ### Create an AMI
+  - Create an instance
+  - Right click instance > Create an image > create image button
+
+
   
         
     
