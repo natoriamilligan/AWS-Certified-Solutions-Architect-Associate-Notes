@@ -288,6 +288,18 @@
   - allows you instances to persist data, even after their termination. You can make another instance and add the volume and get back the data
   - They can only be mounted to one instance at a time (sometimes have a multi attach feature?)
   - bound to a specific AZ (or you have to snapshot it first)
+    #### Snapshots
+    - a snapshot is a backup of your EBS volume
+    - you can copy snapshots accross AZs or region
+    - its recommend to detach a volume before making a snapshot
+    - you can also archive a snapshot in the archive tier which is 75% cheaper (24 to 72 hours)
+    - You can also recycle bin your snapshot (1day to 1 year)
+    - Fast Snapshot Restore (FSR) : force full initialization of snapshot to have no latency on the first use
+    **********
+    **How to create and Restore a snapshot?**
+    - go to snapshots and create a snapshot of the Volume that you want or go to volumes and create snapsot from there.
+    - then create a retention in the recycle bin for EBS snapshots
+    - Then once you delete snapshots, you can recover then from the resources section of the recycle bin
   - They are like a network USB stick
   - it uses the network to communicate to the instance so their might be latency
   - it can detach from an instance quickly
@@ -296,7 +308,11 @@
     - you can change over time
   - they can be create independently to be attached on demand
   - mulitple EBS volumes can be attached to a single instance
-  - The root volume is automatically checked to delete on termination but subsiquent ones added are not checked for that. However you can change what you want to happen for both the root volume and other volumes
+  - The root volume is automatically checked to delete on termination but subsiquent ones added are not checked for that. You can change this when you create your instance in the storage section.
+  - You can view volumes of instances in the storage tab of your instance in block devices
+  ********
+  #### Creating Volumes
+  - Make sure to select the same availibilty zone for your volume that your instance is in
   
         
     
