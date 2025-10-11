@@ -315,8 +315,23 @@
   #### Creating Volumes
   - Make sure to select the same availibilty zone for your volume that your instance is in
   #### Volume Types (6 Types)
-  - gp2/gp3 : general prupose SSD that balances price and performance
-  - io1/io2 block Express : 
+    General Purpose SSD
+    - cost effective storage, low latency
+    - boot volumes, virtual desktops, development/test environments
+      - `gp2/gp3` : general prupose SSD that balances price and performance
+        - gp2 : if you increase the GB you increase the IOPS max at 16,000 IOPS
+        - gp3 : you can independently set the IOPS and GBs
+    Provisioned IOPS (PIOPS) SSD
+    - critical business apps with sustained IOPS performance
+    needed for apps that need more than 16,000 IOPS
+    great for databses that need high performance and consistensy
+      - `io1/io2 block Express` : highest performance SSD volume for mission critcal low latency or high throughput workloads
+    - st 1 (HDD) : low cost HHS volume for frequently accessed throughput intensive workloads
+    - sc 1 (HDD) : lowest cost HDD volume designed for less frequently accessed workloads
+    
+********
+  - EBS volumes are characterized by size, throughput and IOPS
+  - only gp2/gp3 and io1/io2 block express can be used as boot volumes
   
 
   ### EC2 Instance Store
