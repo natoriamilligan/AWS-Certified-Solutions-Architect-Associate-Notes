@@ -311,24 +311,53 @@
   - mulitple EBS volumes can be attached to a single instance
   - The root volume is automatically checked to delete on termination but subsiquent ones added are not checked for that. You can change this when you create your instance in the storage section.
   - You can view volumes of instances in the storage tab of your instance in block devices
+    **What is EBS multi-attach?**
+      - attach the same volume to multiple instances in the same AZ
+      - each instance will have full read and write permissions
+      - use cases:
+        - higher app availiably in clustered Linux apps
+        - apps must manage concurrent write operations
+      - up to 16 EC2 instances at a time
+      - must use a file system thats cluser-aware
   ********
   #### Creating Volumes
   - Make sure to select the same availibilty zone for your volume that your instance is in
   #### Volume Types (6 Types)
-    General Purpose SSD
+  ##### General Purpose SSD
     - cost effective storage, low latency
     - boot volumes, virtual desktops, development/test environments
       - `gp2/gp3` : general prupose SSD that balances price and performance
         - gp2 : if you increase the GB you increase the IOPS max at 16,000 IOPS
         - gp3 : you can independently set the IOPS and GBs
-    Provisioned IOPS (PIOPS) SSD
+  ##### Provisioned IOPS (PIOPS) SSD
     - critical business apps with sustained IOPS performance
-    needed for apps that need more than 16,000 IOPS
-    great for databses that need high performance and consistensy
-      - `io1/io2 block Express` : highest performance SSD volume for mission critcal low latency or high throughput workloads
-    - st 1 (HDD) : low cost HHS volume for frequently accessed throughput intensive workloads
-    - sc 1 (HDD) : lowest cost HDD volume designed for less frequently accessed workloads
-    
+    - needed for apps that need more than 16,000 IOPS
+    - great for databses that need high performance and consistensy
+      - `io1/io2 block Express` : highest performance SSD volume for mission critcal low latency or high throughput workloads and supports EBS milti-attach
+        - io 1 : can increase PIOPS independently from the storage size
+            - max PIOPS 64, 000
+        - io 2 block express : 256,000 PIOPS 
+            - submillisecond latency
+  ##### Hard Disk Drives (HDD)
+  - connot be boot volume
+  - 125 GB to 8TB
+    - st 1 (HDD) throughput optimzed : low cost HHS volume for frequently accessed throughput intensive workloads
+    - sc 1 (HDD)  cold HDD: lowest cost HDD volume designed for less frequently accessed workloads
+      
+  ### EBS Encryption
+   - when you create an encrypted EBS volume the following are encrypted:
+     - data at rest
+     - all data in flight moving between instance and the volume
+     - all snapshots
+     - all volumes created from the snapshot
+   - ecryption has minimal impact on latency
+   - leverages keys from KMS (AES-256)
+   - copying an unencrypted snapshot allows encrption
+  **How to encrypt an unencrypted EBS volume?**
+  - create a snapshot of the unencrypted volume
+  - encrypt that snapshot by copying that snapshot
+  - create a new EBS volume from that snapshot ( the volume will be encrypted)
+  - now attached that volume to the original instance
 ********
   - EBS volumes are characterized by size, throughput and IOPS
   - only gp2/gp3 and io1/io2 block express can be used as boot volumes
@@ -340,6 +369,37 @@
   - good for buffer/cache/scratch data/ temportary content
   - risk of data loss if hardware fail so you need to make sure you backup the data
 
+  ### Amazon EFS
+   - Use cases:
+     - content management, web serving, data sharing, wordpress
+   - security group to control access to EFS
+   - compatible with Linux based AMI (not Windows)
+   - Encryption at rest using KMS
+   - uses the Linux file system (POSIX)
+   - file system scales automatically, pay per use, so you dont need to plan the capacity usage
+ #### EFS Performance and Storage Classes (recommended to use elastic with general purpose)
+  **EFS Scale**
+  - thousands of concurrent NFS clients, 10 GB throughput
+  - grow to petabyte-scale file system automatically
+  **Performance Mode** (set at create time)
+  - general purpose (default) - latency-sensitive use cases (webserver)
+  - MAX I/O - higher latency, throughput, highly parallel (big data, media processing)
+  **Throughput Mode**
+  - bursting : 1TB = 50MB + burst of up to 100MB/s (growing inthroughput as you have more storage
+  - provisioned : set your throughput regardless of storage size
+  - elastic - automatically scales throughput up or down based on your workloads
+    - used for unpredictable workloads (only pay for what you use)
+  **Storage Classes** (
+    - `Storage Tiers` : lifecycle management feature that allows you to move files to different storage tiers after a certain number of days
+      - standard : for frequently accessed files
+      - infrequent access (EFS IA) : infrequent access. cost to retrive files but a lower price to store.
+      - archive : for rarely accessed data, few times a year (cheaper)
+      - implment lifestyle policies to move files between storage tiers
+    - Avalibility & Durability
+      - Standard/Regional : for EFS accross AZs
+      - One Zone : for one AZ
+      
+     
 ## AMIs (Amazon Machine Image)
 - AMI powers the EC2 instances
 - they are a customization of an EC2 instance
