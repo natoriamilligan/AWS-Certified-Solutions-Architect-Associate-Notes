@@ -54,6 +54,7 @@
         - A great fit for micro services and container based apps (Docker and Amazon ECS)
         - has port mapping feature to redirect to a dynamic port in ECS
         - in comparison we would need multiple classic load balancers per app
+      
       **What are target groups?**
         TYPES
         - EC2 instances (managed by Auto Scaling Group) - HTTP
