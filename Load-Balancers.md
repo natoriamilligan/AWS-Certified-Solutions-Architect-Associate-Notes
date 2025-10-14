@@ -73,7 +73,8 @@
       - ultra-low latency
       - has one static IP per ZA and supprots assigning Elastic IP
       - used for extreme performance, TCP or UDP, static IPs
-        Target Groups
+        
+      Target Groups
       - EC2 instances
       - IP addresses - must be private
       - can have a network load balancer in front of an ALB
