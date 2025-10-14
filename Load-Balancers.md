@@ -56,14 +56,15 @@
         - in comparison we would need multiple classic load balancers per app
       
       **What are target groups?**
-        TYPES
-        - EC2 instances (managed by Auto Scaling Group) - HTTP
-        - ECs tasks (managed by ECS itself) - HTTP
-        - lambda functions - HTTP request is translated ina JSOM format
-        - IP addresses - must be private IPs
-        ********
-        - ALB can route to multiple target groups
-        - health checks are at the target group level
+      TYPES
+      - EC2 instances (managed by Auto Scaling Group) - HTTP
+      - ECs tasks (managed by ECS itself) - HTTP
+      - lambda functions - HTTP request is translated ina JSOM format
+      - IP addresses - must be private IPs
+      ********
+      - ALB can route to multiple target groups
+      - health checks are at the target group level
+    
   
        
       #### Network Load Balancer (v2 new gen 2017 NLB)
