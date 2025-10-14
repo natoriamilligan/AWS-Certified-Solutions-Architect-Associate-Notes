@@ -162,7 +162,33 @@
     - set your value low if your requests are short
    
   ## Auto Scaling Group (AGS)
-
+  - free
+  - used to scale out to match an increaded load and vise versa
+  - ensure we have a minimun and max number of instances running
+  - automatically register new instaces to a load balancer
+  - re-create an instance in case a previous one is terminated (unhealthy)
+  - it is possbile to scale in/out based on CloudWatch alarms
+    - an alarm monitors metrics (avg CPU, requestCountperTarget, avg network in/out, or custom metric)
+  **How to create an ASG?**
+    - a Launch Template
+      - contains info on how to launch the instances within the ASG
+    - min size/max size, initial capacity
+    - Scaling policy
+      - Dynamic Scaling
+        - Target Tracking Scaling
+          - simple to set up
+          - set up a metric
+        - Simple / Step Scaling
+          - when a CloudWatch alarm is triggered then do something
+      - Scheduled Scaling
+        - anticipate a scaling based on know usage patterns
+      - Predictive Scaling
+        - continuously forecast load and schedule scaling ahead
+            - analyze historical load > generate forecast > schedule scaling actions
+    - Scaling Cooldowns
+      - after a scaling activty happens you are in a cooldown period
+      - the ASG will not launch or terminate additionals instances to allow metrics to stabilize
+      - ADVICE : use a ready to use AMi to reduce configuration time in order to be serving request faster and reduce the cooldown period
 
 
 
