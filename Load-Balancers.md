@@ -179,7 +179,7 @@
           - simple to set up
           - set up a metric
         - Simple / Step Scaling
-          - when a CloudWatch alarm is triggered then do something
+          - when a CloudWatch alarm is triggered then do something (either steps or a simple action)
       - Scheduled Scaling
         - anticipate a scaling based on know usage patterns
       - Predictive Scaling
