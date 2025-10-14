@@ -312,7 +312,7 @@
   - The root volume is automatically checked to delete on termination but subsiquent ones added are not checked for that. You can change this when you create your instance in the storage section.
   - You can view volumes of instances in the storage tab of your instance in block devices
     **What is EBS multi-attach?**
-      - attach the same volume to multiple instances in the same AZ
+      - attach the same volume to multiple instances in the **same AZ**
       - each instance will have full read and write permissions
       - use cases:
         - higher app availiably in clustered Linux apps
@@ -342,7 +342,7 @@
   - connot be boot volume
   - 125 GB to 8TB
     - st 1 (HDD) throughput optimzed : low cost HHS volume for frequently accessed throughput intensive workloads
-    - sc 1 (HDD)  cold HDD: lowest cost HDD volume designed for less frequently accessed workloads
+    - sc 2 (HDD)  cold HDD: lowest cost HDD volume designed for less frequently accessed workloads
       
   ### EBS Encryption
    - when you create an encrypted EBS volume the following are encrypted:
@@ -377,6 +377,7 @@
    - Encryption at rest using KMS
    - uses the Linux file system (POSIX)
    - file system scales automatically, pay per use, so you dont need to plan the capacity usage
+   - needs to be in the same region but can be accross all AZs in that region
  #### EFS Performance and Storage Classes (recommended to use elastic with general purpose)
   **EFS Scale**
   - thousands of concurrent NFS clients, 10 GB throughput
@@ -385,8 +386,8 @@
   - general purpose (default) - latency-sensitive use cases (webserver)
   - MAX I/O - higher latency, throughput, highly parallel (big data, media processing)
   **Throughput Mode**
-  - bursting : 1TB = 50MB + burst of up to 100MB/s (growing inthroughput as you have more storage
-  - provisioned : set your throughput regardless of storage size
+  - bursting : 1TB = 50MB + burst of up to 100MB/s (growing inthroughput as you have more storage) throughput scales with storage
+  - provisioned : set your throughput regardless of storage size (will pay for in advanced)
   - elastic - automatically scales throughput up or down based on your workloads
     - used for unpredictable workloads (only pay for what you use)
   **Storage Classes** (
