@@ -44,7 +44,7 @@
       - support for HTTP/2 and WebSocket
       - Supports redirects (HTTP to HTTPs for exmaple)
       - load balancer gets a fixed hostname (URL)
-      - app servers dont see the IP of the client directly which means the instances through the balancer can see the client who sent the load directly. They have to look at extra headers in the request
+      - app servers dont see the IP of the client directly which means the instances through the balancer can see the client who sent the load directly. They have to look at extra headers in the request. This is through listeners and rules
         - the true IP of the client is inserted in the header called X-Forward-For
         - we can also get the port with the header > (X-Forward-port) and protocol used with the header > (X-forwarded-proto)
       - Routing tables to different target groups
@@ -66,4 +66,15 @@
   
        
       #### Network Load Balancer (v2 new gen 2017 NLB)
+      - Layer 4 : TCP and UDP traffic
+      - handle millions fo requests per seconds
+      - ultra-low latency
+      - has one static IP per ZA and supprots assigning Elastic IP
+      - used for extreme performance, TCP or UDP, static IPs
+        Target Groups
+      - EC2 instances
+      - IP addresses - must be private
+      - can have a network load balancer in front of an ALB
+      - heath checks support the TCP , HTTP and HTTPS protocols
+        
       #### Gateway Load Balancer (2020 GWLB)
