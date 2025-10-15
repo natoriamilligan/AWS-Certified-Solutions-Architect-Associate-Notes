@@ -249,7 +249,7 @@
     - non persistant ( can lose entire cache)
     - backup and restore for the serverless version not on the self managed version
     - multithreaded architecture
-    - on multiple partitions that are sharing the data instead of replicating the data like ElastiCache
+    - on multiple partitions that are sharing the data instead of replicating the data like redis
 
 
 
