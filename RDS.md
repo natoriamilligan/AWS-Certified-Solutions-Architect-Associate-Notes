@@ -199,6 +199,7 @@
   - when updates are made to the new DB cluster data, then additional storage is allocated and data is copied to be separated so best of both worlds
 - fast and cost effective
 - use to create a staging db from a production database without impacking the production databse
+- good for doing performance tests
 
 ## Amazon ElasticCache Overview
 - helps get you managed Redis or Memcached
