@@ -52,3 +52,70 @@
   - snapshot taken
   - the DB is restored from the snapshot inthe new AZ
   - sync is stablished between the two databases
+ 
+## RDS Custom
+- managed Oracle and Microsft SQL Server Database with OS and database customization (only these 2 databases)
+- access to underlying database and OS so you can:
+  - configure setting
+  - install patches
+  - enable native featues
+  - access the underlying EC2 instance using SSh or SSM Session Manager
+- you should deactivate the automation mode to perform the customixation, take a DB snapshot just in case you break something with the customizations
+- full acces to the underlying OS and database, thats the differene between RDS and RDS Custom
+
+
+# Aurora
+- proprietary tech from SWA (not open sourced)
+- postgres and MySQL are both supported as Aurora DB (means your drivvers will work as if Aurora was a postgres or MySQL DB
+- Aurora is AWS cloud optimized and claims 5x performationce improvement over MySQL on RDS, over 3x the performance of postgres on RDS
+- Aurora storage auto grows in increments of 10gb up to 128 TB
+- Aurora can have up to 15 read replicas. The replication process is faster than MySQL
+- failover in Aurora is instantaneous
+- Aurora costs more than RDS (20%) but its more efficient
+
+## High Availability and Read Scaling
+- stores 6 copies of your data accross 3 AZs
+  - only needs 4 copies out of 6 for writes
+  - onlye needs 3 out of 6 needed for reads
+  - self healing with peer to peer replication
+  - storage is striped accross 100s of volumes
+- one aurora instance takes writes (master). Master is the only one that writes to your storage
+- automated failover for master (less than 30 seconds)
+- master plus up to 15 read replicas serve reads
+- supports cross region replications
+
+## Aurora DB Cluster
+- Aurora provides a "write endpoint" that always points to the master even in failover. the clients only point to the endpoint
+- Reader Endpoint: there can be up to 15 read replicas which can get confusing for the system to keep track of all of them so they all point to a reader endpoint. All the clients point to the reader endpoint and load balancing happens to balance which clients go to which read replica. The load balancing happens at the connection level not the statement level
+- The read replicas are auto scaling (horizontal up to 15)
+  
+**What is backtrack?**
+- restore data at any point of time without using backups
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
