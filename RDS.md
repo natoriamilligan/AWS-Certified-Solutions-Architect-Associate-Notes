@@ -212,6 +212,25 @@
     - user logs into any of the apps
     - the app writes the session data into ElastiCache
     - if the user hits another instance of the app, the app retrieves the session cache from ElasticCache, and the user is still logged in. now the app is stateless
+  ## ElastiCache Security
+  - supports IAM authentication for Redis only
+  - IAM policies on ElastiCache are on used for AWS API-level security
+  - Redius AUTH (security within Redis)
+    - you can set a pw/token when you create a redis cluster
+    - this is an extra level of security for your chache (on top of security groups)
+    - Support SSL in flight encryption
+  - Memcached (security within Memcached)
+    - supports SASL-based authentication (advanced)
+   
+  ## Patterns for ElasticCache
+    ### Lazy Loading
+    - all the read data is cached, data can become stale in cache (no updated)
+    ### Write Through
+    - adds or update data in cache when written to DB (no stale data)
+    ### Session Store
+    - store temporary session data in a cache (using TTL features)
+  ********
+  Quote : there are only two hard things in CS, ccache invalidation and naming things
    
   ### Redis Vs Memcached
     #### REDIS
@@ -220,6 +239,9 @@
     - data durability useing AOF persistence
     - backup and restore features on the open source version of Redis
     - supports set and sorted sets
+      - `sorted sets` guarantee both uniqueness and element ordering (This is a use case for Redis)
+        - each time a new element is added, its ranked in real time 
+    
  
     #### Memcached
     - multi node for partitioning of data (sharding)
