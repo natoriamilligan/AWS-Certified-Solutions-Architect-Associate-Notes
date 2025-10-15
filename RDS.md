@@ -2,6 +2,7 @@
 - managed DB service for databases use SQL
 - allows you to create databases in the cloud that are managed by AWS
   - posgresm MySQL MariaDB ORacle Microsoft SQL Server IBM DB2 Aurora (AWS Proprietary Database)
+- RDS does not support Oracle IAM Database Authenication
 **Why use RDS over deploying the database on an EC2 instance?**
   - RDS is a managed service
     - automating provisioning, OS patching
@@ -74,6 +75,7 @@
   ### Manual DB Snapshots
   - manually triggered by the user
   - retention of backup for as long as you want
+    
 ## Amazon RDS Proxy
 **To explain what this is, basically connections will be opening and closing multiple times to the RDS db and that can leave the databse open to threats, its best to go through a proxy first that is in a private subnet and not the VPC**
 - fully managed database proxy for RDS
@@ -174,6 +176,7 @@
   - restore the backup files onto a new Aurora cluster running MySQL
  
 ## RDS and Aurora Security
+- RDS does not support Oracle IAM Database Authenication
   ### At Rest encryption
   - databsse master and replicas encryption use AWS KMS - must be defined at launch time
   - if the master is not encrypted, then the read replicas cannot be encrypted
