@@ -74,6 +74,17 @@
   ### Manual DB Snapshots
   - manually triggered by the user
   - retention of backup for as long as you want
+## Amazon RDS Proxy
+**To explain what this is, basically connections will be opening and closing multiple times to the RDS db and that can leave the databse open to threats, its best to go through a proxy first that is in a private subnet and not the VPC**
+- fully managed database proxy for RDS
+- allows apps to pool and share DB connections established with the database
+- improving database efficiency by reducing the stress on database resources and minimize open connections and timeouts
+- serverless, autoscaling, highly avaiable (multiAZ)
+- reduced RDS and Aurora failoever time by up to 66%. the proxy will handle the failover time
+- supports RDS (MySQl postres, mariaDB, MS Server) and aurora (mySQl and postgres)
+- no code changed required for most apps. Instead of connecting to the DB , you just connect to the proxy
+- enforces IAM authentication for DB, and securely store these credentials in AWS Secrets Manager
+- never publicly accessible (must be accessed from the VPC). Not to the internet
 
 # Aurora
 - proprietary tech from SWA (not open sourced)
@@ -151,11 +162,72 @@
   - Manually triggered by the user
   - retention of backup for as long as you want
 
-## RDS & Aurora Restore Options
-- Restoring a backup or snapshot creates a new database
-- restoring MySQL RDS database S3
-  - create a backup
+## RDS & Aurora Restore Options 
+- Restoring a backup or snapshot > creates a new database
+- Restoring MySQL RDS database S3 steps:
+  - create a backup of your on-premises database
+  - store it on Amazon S3 (object Storage)
+  - restore the backup file onto a new RDS instance running MySQL
+- Restoring MySQL Aurora cluster from S3 steps:
+  - create a backup of your on-premises db using Percona XtraBackup
+  - stre the backup on S3
+  - restore the backup files onto a new Aurora cluster running MySQL
+ 
+## RDS and Aurora Security
+  ### At Rest encryption
+  - databsse master and replicas encryption use AWS KMS - must be defined at launch time
+  - if the master is not encrypted, then the read replicas cannot be encrypted
+  - to encrypt and unencrypted database, you would have to create a snapshot and then restore with encryption
+  ### In-flight encryption
+  - TLS ready by deafult, use the AWS TLS root certs client-side
+  ### IAM Authentication
+  - IAM roles to connect to your databse (instead of username and password)
+  ### Security Groups
+  - control network access , ports, IPs, toher sgs
+  ### No SSH availbable except on RDS Custom
+  ### Audit Logs can be enabled 
+  - they will be lost so you can use cloudwatch
+  - send to CloudWatch for longer retention
+ 
+## Aurora Database Cloning
+- create a new Aurora DB cluster from an existing one
+- faster than snapshot and restore bc closing uses copy-on-write protocol
+  - initially, the new DB cluster uses the same data volume as the original DB cluster (no copying needed)
+  - when updates are made to the new DB cluster data, then additional storage is allocated and data is copied to be separated so best of both worlds
+- fast and cost effective
+- use to create a staging db from a production database without impacking the production databse
 
+## Amazon ElasticCache Overview
+- helps get you managed Redis or Memcached
+- caches are in-memory databses with really high performance, low latency
+- helps reduce load off of databses for read intensive workloads
+- helps your app stateless
+- AWS takes care of OS maintenance / patching, setups configuration backups etc
+- Using ElasticCache involves heavy app code changes
+  ## Architecture
+  - app queries ElasticCache, if not avaliable, get from RDS db and store in ElasticCache
+  - helps relieve load from DB
+  - cahce must have a invalidation strategy to make sure only the most current data is used in there
+    ### User Session Store
+    - user logs into any of the apps
+    - the app writes the session data into ElastiCache
+    - if the user hits another instance of the app, the app retrieves the session cache from ElasticCache, and the user is still logged in. now the app is stateless
+   
+  ### Redis Vs Memcached
+    #### REDIS
+    - Multi AZ with auto failover
+    - Read replicas
+    - data durability useing AOF persistence
+    - backup and restore features on the open source version of Redis
+    - supports set and sorted sets
+ 
+    #### Memcached
+    - multi node for partitioning of data (sharding)
+    - no high avaiabilty (replication)
+    - non persistant ( can lose entire cache)
+    - backup and restore for the serverless version not on the self managed version
+    - multithreaded architecture
+    - on multiple partitions that are sharing the data instead of replicating the data like ElastiCache
 
 
 
