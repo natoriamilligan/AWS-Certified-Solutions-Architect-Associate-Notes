@@ -106,7 +106,32 @@
     ### Routing Policies
     - defines how Route 53 respont o DNA queries
     - routing is not like the loadbalancer, it doesnt route any traffic. It only responds to DNS queries. DNS just helps traslate hostnames, no routing
-    - Route 53 Suppotys the following routing policies
+      #### Health Checks
+        - check health of mainly public resources
+        - have automated failover
+          1. health checks that monitor an endpoint (app, server, AWS resource)
+             - abt 15 global health checks will check the endpoint health
+             - you can set a threshold for healthy or unhealthy (3 is the default). This is how many times does it have to fail for it to be unhealthy from one health checker
+             - you can set an interval 30 sec, smaller interval of 10 sec costs more $$$
+             - HTTP, HTTPS TCP
+             - if more than 18% of checkers say its healthy then Route 53 deems it so
+             - you get to choose which regions the checkers are in
+             - health checks pass only when the endpoint responds with the 2xx or 3xx status codes
+             - health checks can be setup to  pass/ fail based on the text in the first 5120 bytes of the response
+             - configure your route/firewall to allow incoming requests from route 53 health checkers
+          3. health checks that monitor other health checks
+             - combine the results of multiple health chekcs into a single check
+             - you can use OR AND NOT
+             - can monitor up to 256 child health checks
+             - specify how many health checks need to pass to make the parent pass
+             - usage: perform maintenance to your website without causing all health checks to fail
+          5. health checks that monitor a CW alarm
+          6. health checks are integrated with CW metrics
+        ##### Health Checks Private Hosted Zones
+        - route 53 health checkkers are outside the VPC so it will be difficult. they cant access private endpoints
+        - so instead you have to create a CW metric and associte the CW alarm, then create a health check that checks the alarm itself
+          
+    - Route 53 Suppotys the following routing policies:
       #### Simple Routing
         - typically route traffic to a single resource
         - can specify multiple values in the same record (multiple IP addresses)
@@ -119,7 +144,7 @@
         - assign each record a relative weight
         - weights dont need to sum to 100%
         - DNS records must have the same name and type
-        - health checks
+        - health checks 
         - use cases: load balancing between regions, testing new app versions
         - assigna weight of 0 to a record to stop sending trafic to a resource
         - if all records have a weight of 0, then all records will be returned equally
@@ -131,6 +156,71 @@
         - Germany users may be directed to the US (if thats the lowest latency)
         - health checks
         - when making these recors you have to specify where the IP address you are routing to is located. AWS isnt smart enough yet to know which regions IP adresses are from
-        - 
+     
+      #### Failover (Active-Passive)
+        - when a health check is associated with an instane and it is unhealthy, Route 53 will failover to the seconday instance that is the disaster recovery instance
+        - you will have a primary and seconday instance for your record
+     
+      #### Geolocation
+        - based on where the user is actualy located
+        - specify by continet, country, or by US state (if there is overlapping, most precise location selected)
+        - should create a "Default" record ( in case there's no match on location)
+        - use cases: website localization, restrict content distribution, load balancing
+        - health checks
+     
+      #### Geoproximity
+        - route traffic to your resources based on the geographic locaton of users and resources
+        - ability to shift more traffic to resources based on the difined bias
+        - to change the size of the geographic region, specify bias values
+          - expand : (1 - 99) more traffic to the resource
+          - shrink : (-1 - -99 less traffic to the resource
+        - resources can be:
+          - AWS resources (specify AWs region)
+          - non-AWS resources (specify longitutude and latitude)
+        - you must use route 53 traffic flow (advanced) to use this feature
+        - if bias is set to 0, lines will be split evenly based on that region proximity
+        - helpful when you need to increase bias to one region
+     
+      #### IP-Based
+        - routing based on clients IP
+        - in route 53 you provide a list of CIDRs (pernounced cider) for your clients and the corresponding endpoints/locations
+        - use cases: optimize performance, reduce network costs
+        - ex. route end users from a particular ISP to a specfic endpoint
+     
+      #### Multi-Value
+        - when you want to route traffic to multiple recources
+        - route 53 will return multiple values/resources
+        - health checks
+        - up to 8 healthy records are returned for each multivalue query
+        - multivalue is not a substitube for having an ELB
+
+    ### Domain Registar vs. DNS Service
+    - you buy or register your domain name with a Domain Registar typically by paying annual charges (GoDaddy, Amazon Registar Inc, etc.
+    - the registar usually provides you with a DNS service to manage your DNA records (Route 53 hosted zone)
+    - but you can use another DNS service to manage your DNS records
+    - do if you decide to buy a domain name from godaddy, you will need to create a hosted zone in route 53 then  you will need to change the nameservers (NS) on godaddy to the name servers from ROute 53 to use Route 53 as your DNS service to manage your DNS records
+
+    ### Hybrid DNS
+    - if you want to resolve DNS queries between your VPC (Route 53 resolver) and on-site premises (other DNS resolvers)
+    - you have to use a resolver endpoint on your VPC. The on-premises data center will connect via a VPN and then connect to the inbound or outbound endpoint
+    - networkds can be:
+      - VPC itself / Peered VPC
+      - on-premises network (connected through Direct Connect or AWS VPN)
+     
+      #### Resolver Endpoints
+        - inbound endpoint : allows your DNS resolvers to resolve domain names for AWS resources and records in Private Hosted Zones
+        - outbound endpoint : route 53 forwards DNS queries to your DNS resolvers
+
+
+
+
+
+
+
+
+
+
+
+
   
   
