@@ -61,6 +61,46 @@
       - NS : Name Servers for the Hosted Zone, they are the DNS names or IP addresses of the servers that respond to the DNS queries of your hosted zone
  
   ### Hosted Zones
-  - a container for records that define how to route traddic to a domain and its subdomains
-  - Public Hosted Zones : contains records that specify how to route traffic on the Internet (public domain names)
+  - a container for records that define how to route traffic to a domain and its subdomains
+  - you will pay 50 cents per month per hosted zone
+    #### Public Hosted Zones
+      - contains records that specify how to route traffic on the Internet (public domain names)
+    #### Private Hosted Zones
+      - contains records that specify how you route traffic within one or more VPCs (private domain names)
+
+  ### TTL (Time To Live)
+  - the client will cache the result of a hostname for the duration of the TTL , so if you change the IP address before the TTL i up, it will still show the old IP address until time is up,then change to the update IP
+  - Do this so we dont query the DNS server (route 53) too much
+  - High TTLs - less traffic to Route 53 but possible outdaed information
+  - Low TTLs - more traffic on Route 53 (more $$), records not as outdated, easy to change records
+  - TTL is mandatory except for Alias records
+ 
+  ### CNAME vs Alias
+   - if you want to map a hostname to another hostname:
+     ##### CNAME
+     - points a hostname to any other hostname
+     - onyl works if you have a non-root domain name
+
+     ##### Alias
+       - points a hostname to an AWS resource
+       - works for root domains and non root domains (mydomain.com)
+       - free of charge
+       - native health check ability
+         ###### Alias Records
+           - an extension of DNA functionality
+           - automatically recgonizes change in the resources IP address
+           - unlike CNAME, it can be used for the top node of a DNA namespase (Zone Apex) ex. example.com
+           - will always be Type A or AAAA
+           - You cant set the TTL
+           - Record Targets:
+             1. ELBs
+             2. Cloudfront Distributions
+             3. API Gateway
+             4. Elastic Beanstalk Env
+             5. s# websites
+             6. APC interface endpoints
+             7. Global Accelerator
+             8. Route 53 record in the same hosted zone
+             9. NOT for an ECS DNS name
+  
   
