@@ -79,7 +79,7 @@
    - if you want to map a hostname to another hostname:
      ##### CNAME
      - points a hostname to any other hostname
-     - onyl works if you have a non-root domain name
+     - only works if you have a non-root domain name
 
      ##### Alias
        - points a hostname to an AWS resource
@@ -102,5 +102,35 @@
              7. Global Accelerator
              8. Route 53 record in the same hosted zone
              9. NOT for an ECS DNS name
+
+    ### Routing Policies
+    - defines how Route 53 respont o DNA queries
+    - routing is not like the loadbalancer, it doesnt route any traffic. It only responds to DNS queries. DNS just helps traslate hostnames, no routing
+    - Route 53 Suppotys the following routing policies
+      #### Simple Routing
+        - typically route traffic to a single resource
+        - can specify multiple values in the same record (multiple IP addresses)
+        - if multiple values are returned, a random one is chosen by the client
+        - when alias is enabled, you can only specify one AWS resource
+        - cant be associated with health checks
+     
+      #### Weighted
+        - control the % of the requests that go to each specfic resource
+        - assign each record a relative weight
+        - weights dont need to sum to 100%
+        - DNS records must have the same name and type
+        - health checks
+        - use cases: load balancing between regions, testing new app versions
+        - assigna weight of 0 to a record to stop sending trafic to a resource
+        - if all records have a weight of 0, then all records will be returned equally
+     
+      #### Latency-based
+        - redirect to a resource that has the least latecny close to us
+        - super helpful whenlatency for users is a priority
+        - latency is based ontraffic between users and AWS regions
+        - Germany users may be directed to the US (if thats the lowest latency)
+        - health checks
+        - when making these recors you have to specify where the IP address you are routing to is located. AWS isnt smart enough yet to know which regions IP adresses are from
+        - 
   
   
