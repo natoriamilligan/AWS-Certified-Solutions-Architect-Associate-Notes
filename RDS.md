@@ -206,6 +206,7 @@
 - caches are in-memory databses with really high performance, low latency
 - helps reduce load off of databses for read intensive workloads
 - helps your app stateless
+- user has a session ID in web cookies and that is sent to the instance who then uses that to store your info in Elasticache. Elasticache then uses that ID to retrieve your session data
 - AWS takes care of OS maintenance / patching, setups configuration backups etc
 - Using ElasticCache involves heavy app code changes
   ## Architecture
